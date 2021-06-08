@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="3 seconds">
+
+    <springProperty name="appName" source="spring.application.name"/>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+			<pattern>%date [${appName},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}] %-5level %logger{36} [%file:%line] -%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/data/logs/${appName}/${appName}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>/data/logs/${appName}/${appName}.log.%d{yyyyMMdd}</fileNamePattern>
+			<MaxHistory>999</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+			<pattern>%date [${appName},%X{X-B3-TraceId:-},%X{X-B3-SpanId:-},%X{X-Span-Export:-}] %-5level  %logger{36} [%file:%line] -%msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <springProfile name="dev">
+        <root level="info">
+            <appender-ref ref="console"/>
+        </root>
+    </springProfile>
+    <springProfile name="office">
+        <root level="info">
+            <appender-ref ref="console"/>
+        </root>
+    </springProfile>
+    <springProfile name="stg">
+        <root level="warn">
+            <appender-ref ref="file"/>
+        </root>
+    </springProfile>
+    <springProfile name="prd">
+        <root level="info">
+            <appender-ref ref="file"/>
+        </root>
+    </springProfile>
+</configuration>

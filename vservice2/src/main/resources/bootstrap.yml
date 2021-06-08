@@ -1,0 +1,36 @@
+server:
+  port: 8008
+spring:
+  cloud:
+    nacos:
+      discovery:
+#        namespace: 3ee24d33-9483-4f28-a2a6-6e7ee95be819
+        server-addr: 127.0.0.1:8848
+#        group: mservice
+      config:
+        namespace: 3ee24d33-9483-4f28-a2a6-6e7ee95be819
+        group: vservice
+        file-extension: yaml
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+    loadbalancer:
+      retry:
+        enabled: true
+  application:
+    name: vservice
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+feign:
+  sentinel:
+    enabled: true
+

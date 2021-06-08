@@ -1,0 +1,28 @@
+spring:
+  datasource:
+#    url: jdbc:mysql://www.zjtb.xyz:3306/graduation?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: wcjb
+    url: jdbc:mysql://rm-wz9p8f5d6368qr720ao.mysql.rds.aliyuncs.com:3306/graduation?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=Asia/Shanghai
+    username: zjt
+    password: Aliyun@hh
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connection-timeout: 60000
+      maximum-pool-size: 10
+      minimum-idle: 0
+      max-lifetime: 60000
+      auto-commit: true
+      validation-timeout: 5000
+      idle-timeout: 30000
+      connection-test-query: SELECT 1
+  profiles:
+    active: dev
+logging:
+  file:
+    path: D://日志
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-not-delete-value: 0
+      logic-delete-field: deleted

@@ -1,0 +1,34 @@
+server:
+  port: 8001
+spring:
+  cloud:
+    nacos:
+      discovery:
+ #       namespace: 3ee24d33-9483-4f28-a2a6-6e7ee95be819
+        server-addr: localhost:8848
+#        group: mservice
+      config:
+        group: mservice
+        file-extension: yaml
+        namespace: 3ee24d33-9483-4f28-a2a6-6e7ee95be819
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+  application:
+    name: mservice
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+feign:
+  sentinel:
+    enabled: true
+  httpclient:
+    enabled: true

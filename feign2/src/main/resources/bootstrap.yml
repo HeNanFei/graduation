@@ -1,0 +1,52 @@
+server:
+  port: 8001
+spring:
+  cloud:
+    nacos:
+      discovery:
+ #       namespace: 3ee24d33-9483-4f28-a2a6-6e7ee95be819
+        server-addr: localhost:8848
+      config:
+        group: fservice
+        file-extension: yaml
+        namespace: 3ee24d33-9483-4f28-a2a6-6e7ee95be819
+    sentinel:
+      transport:
+        dashboard: localhost:8080
+        port: 8719
+#      datasource:
+#        ds1:
+#          nacos:
+#            server-addr: localhost:8848
+#              namespace: 9676b96c-ef72-4ca5-b976-432050a7f026
+#              dataId: ${spring.application.name}
+#              groupId: feign
+#              data-type: json
+#              rule-type: flow
+
+  application:
+    name: feignservice
+  zipkin:
+    base-url: http://localhost:9411
+  sleuth:
+    sampler:
+      probability: 1
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+feign:
+  sentinel:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 200000
+        readTimeout: 200000
+        retry: 4
+
+
+
+
+
